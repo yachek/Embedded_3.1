@@ -35,17 +35,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String tmp = num.getText().toString();
-                BigInteger number = new BigInteger(tmp);
-                if (number.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Введіть непарне число!", Toast.LENGTH_SHORT);
-                    toast.show();
-                } else if (number.isProbablePrime(1) || number.equals(BigInteger.ONE)) {
-                    String temp = number.longValue() + " просте!";
-                    result.setText(temp);
+                if(tmp.equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Введіть число!", Toast.LENGTH_SHORT).show();
                 } else {
-                    ferma(number);
-                    out();
+                    BigInteger number = new BigInteger(tmp);
+                    if (number.equals(BigInteger.ONE) || number.equals(BigInteger.ZERO)) {
+                        Toast.makeText(getApplicationContext(),
+                                "Введіть число більше за 1!", Toast.LENGTH_SHORT).show();
+                    } else if (number.mod(BigInteger.valueOf(2)).equals(BigInteger.ZERO)) {
+                        Toast.makeText(getApplicationContext(),
+                                "Введіть непарне число!", Toast.LENGTH_SHORT).show();
+                    } else if (number.isProbablePrime(1)) {
+                        String temp = number.longValue() + " просте!";
+                        result.setText(temp);
+                    } else {
+                        ferma(number);
+                        out();
+                    }
                 }
             }
         });
